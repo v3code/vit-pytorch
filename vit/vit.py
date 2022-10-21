@@ -13,7 +13,7 @@ class ViT(nn.Module):
                  embed_dim=768,
                  num_layers=12,
                  num_heads=12,
-                 hidden_dim=3072,
+                 mlp_dim=3072,
                  atten_drop=0.,
                  proj_drop=0.1,
                  head = None):
@@ -26,7 +26,7 @@ class ViT(nn.Module):
         self.transformer = Transformer(num_layers,
                                        embed_dim,
                                        num_heads,
-                                       hidden_dim,
+                                       mlp_dim,
                                        atten_drop,
                                        proj_drop)
 
