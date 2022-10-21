@@ -6,9 +6,8 @@ class MLPHead(nn.Module):
         self.mlp = nn.Sequential(
             nn.Linear(embed_dem, hidden_size),
             nn.Dropout(p=dropout),
-            nn.LayerNorm(),
+            nn.GELU(),
             nn.Linear(hidden_size, num_classes),
-            nn.Softmax(dim=num_classes)
         )
 
     def forward(self, x):
