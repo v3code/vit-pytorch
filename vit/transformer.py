@@ -18,8 +18,7 @@ class Block(nn.Module):
         self.mlp = MLP(dim, hidden_dim, dropout=proj_drop)
 
     def forward(self, x):
-        x = self.norm1(x)
-        x += self.atten(x)
+        x = x + self.atten(self.norm1(x))
         return x + self.mlp(self.norm2(x))
 
 
