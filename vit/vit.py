@@ -25,8 +25,8 @@ class ViT(nn.Module):
         self.pos_embendding = PositionalEmbedding(seq_length, embed_dim)
         self.transformer = Transformer(num_layers,
                                        embed_dim,
-                                       num_heads,
                                        mlp_dim,
+                                       num_heads,
                                        atten_drop,
                                        proj_drop)
 

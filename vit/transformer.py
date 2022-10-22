@@ -5,14 +5,15 @@ from vit.mlp import MLP
 
 
 class Block(nn.Module):
-    def __init__(self, dim,
+    def __init__(self,
+                 dim,
                  num_heads,
                  hidden_dim,
                  atten_drop=0.,
                  proj_drop=0.):
         super().__init__()
-        self.norm_1 = nn.LayerNorm(dim)
-        self.norm_2 = nn.LayerNorm(dim)
+        self.norm1 = nn.LayerNorm(dim)
+        self.norm2 = nn.LayerNorm(dim)
         self.atten = Attention(dim, num_heads, atten_dropout=atten_drop, proj_dropout=proj_drop)
         self.mlp = MLP(dim, hidden_dim, dropout=proj_drop)
 

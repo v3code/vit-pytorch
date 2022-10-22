@@ -22,7 +22,7 @@ class Attention(nn.Module):
                                 3,
                                 self.num_heads,
                                 c // self.num_heads)
-                       .premute(2, 0, 3, 1, 4))
+                       .permute(2, 0, 3, 1, 4))
         return qkv_element.unbind(0)
 
     def forward(self, x):

@@ -2,14 +2,14 @@ from torch import nn
 
 
 class MLP(nn.Module):
-    def __init__(self, in_features, hidden_features=None, out_features=None,
+    def __init__(self, embed_dim, mlp_dim,
                  dropout=0.):
         super().__init__()
         self.mlp = nn.Sequential(
-            nn.Linear(in_features, hidden_features),
+            nn.Linear(embed_dim, mlp_dim),
             nn.Dropout(p=dropout),
             nn.GELU(),
-            nn.Linear(hidden_features, out_features),
+            nn.Linear(mlp_dim, embed_dim),
             nn.Dropout(p=dropout)
         )
 
