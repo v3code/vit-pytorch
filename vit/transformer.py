@@ -6,16 +6,16 @@ from vit.mlp import MLP
 
 class Block(nn.Module):
     def __init__(self,
-                 dim,
+                 embed_dim,
                  num_heads,
-                 hidden_dim,
+                 mlp_dim,
                  atten_drop=0.,
                  proj_drop=0.):
         super().__init__()
-        self.norm1 = nn.LayerNorm(dim)
-        self.norm2 = nn.LayerNorm(dim)
-        self.atten = Attention(dim, num_heads, atten_dropout=atten_drop, proj_dropout=proj_drop)
-        self.mlp = MLP(dim, hidden_dim, dropout=proj_drop)
+        self.norm1 = nn.LayerNorm(embed_dim)
+        self.norm2 = nn.LayerNorm(embed_dim)
+        self.atten = Attention(embed_dim, num_heads, atten_dropout=atten_drop, proj_dropout=proj_drop)
+        self.mlp = MLP(embed_dim, mlp_dim, dropout=proj_drop)
 
     def forward(self, x):
         x = x + self.atten(self.norm1(x))
@@ -25,18 +25,18 @@ class Block(nn.Module):
 class Transformer(nn.Module):
     def __init__(self,
                  num_layers,
-                 dim,
-                 hidden_dim,
+                 embed_dim,
+                 mlp_dim,
                  num_heads=8,
                  atten_drop=0.,
                  proj_drop=0.):
         super().__init__()
         self.preprocess = nn.Sequential(
             nn.Dropout(proj_drop),
-            nn.LayerNorm(dim)
+            nn.LayerNorm(embed_dim)
         )
         self.blocks = nn.ModuleList([
-            Block(dim, num_heads, hidden_dim, atten_drop, proj_drop)
+            Block(embed_dim, num_heads, mlp_dim, atten_drop, proj_drop)
             for _ in range(num_layers)])
 
     def forward(self, x):
